@@ -1,5 +1,6 @@
 <?php 
 Class Page {
+    static public $title = "Please, set the title!";
     static function header() {
         ?>
         <!DOCTYPE html>
@@ -9,7 +10,7 @@ Class Page {
         <!-- Basic Page Needs
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
         <meta charset="utf-8">
-        <title>Your page title here :)</title>
+        <title><?php echo self::$title; ?></title>
         <meta name="description" content="">
         <meta name="author" content="">
 
@@ -38,7 +39,7 @@ Class Page {
         <div class="container">
             <div class="row">
             <div class="one-half column" style="margin-top: 25%">
-                <h4>Basic Page</h4>
+                <h4><?php echo self::$title; ?></h4>
 
 <?php
 
@@ -46,7 +47,6 @@ Class Page {
 
     static function footer() {
         ?>
-                    <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
         </div>
         </div>
     </div>
