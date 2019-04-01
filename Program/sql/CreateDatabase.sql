@@ -3,6 +3,12 @@ DROP DATABASE IF EXISTS restaurantdb;
 CREATE DATABASE restaurantdb;
 use restaurantdb;
 
+/*Clean up just in case*/
+-- DROP TABLE IF EXISTS Restaurant;
+-- DROP TABLE IF EXISTS [Table];
+-- DROP TABLE IF EXISTS ;
+-- DROP TABLE IF EXISTS ;
+
 CREATE TABLE Restaurant ( 
     RestaurantId INT AUTO_INCREMENT NOT NULL,
     Name CHAR(50) NOT NULL,
@@ -13,7 +19,7 @@ CREATE TABLE Restaurant (
     PRIMARY KEY (RestaurantId)
 );
 
-CREATE TABLE Table (
+CREATE TABLE DiningTable (
     TableId INT AUTO_INCREMENT NOT NULL,
     Placement VARCHAR(50) NOT NULL,
     SeatingNum VARCHAR(50) NOT NULL,
@@ -38,6 +44,6 @@ CREATE TABLE Reservation (
     TableId INT(10) NOT NULL,
     CustomerId INT(10) NOT NULL,
     PRIMARY KEY (ReservationId),
-    FOREIGN KEY (TableId) REFERENCES Table (TableId),
+    FOREIGN KEY (TableId) REFERENCES DiningTable (TableId),
     FOREIGN KEY (CustomerId) REFERENCES Customer (CustomerId)
 );
