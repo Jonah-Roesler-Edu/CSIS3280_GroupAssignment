@@ -2,8 +2,9 @@
 
 class Reservation{
     private $ReservationId;
+    private $TableId;
     private $NumPeople;
-    private $Customer;
+    private $CustomerId;
     private $Date;
     private $Time;
 
@@ -12,12 +13,16 @@ class Reservation{
         return $this->ReservationId;
     }
 
+    function getTableId() : int{
+        return $this->TableId;
+    }
+
     function getNumPeople() : int{
         return $this->NumPeople;
     }
 
-    function getCustomer() : int{
-        return $this->Customer;
+    function getCustomerId() : int{
+        return $this->CustomerId;
     }
 
     function getDate() : date{
@@ -32,13 +37,17 @@ class Reservation{
     function setReservationId(int $newReservationId){
         $this->ReservationId = $newReservationId;
     }
+
+    function setTableId(int $newTableId){
+        $this->TableId = $newTableId;
+    }
     
     function setNumPeople(int $newNumPeople){
         $this->NumPeople = $newNumPeople;
     }
 
-    function setCustomer(int $newCustomer){
-        $this->Customer = $newCustomer;
+    function setCustomerId(int $newCustomerId){
+        $this->CustomerId = $newCustomerId;
     }
 
     function setDate(date $newDate){
@@ -53,8 +62,9 @@ class Reservation{
     function jsonSerialize(){
         $obj = new StdClass;
         $obj->ReservationId = getReservationId();
+        $obj->TableId = getTableId();
         $obj->NumPeolpe = getNumPeople();
-        $obj->Customer = getCustomer();
+        $obj->CustomerId = getCustomerId();
         $obj->Date = getDate();
         $obj->Time = getTime();
         return $obj;
