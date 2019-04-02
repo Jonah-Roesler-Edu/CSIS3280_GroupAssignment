@@ -10,10 +10,10 @@ require_once('inc/Entities/Table.class.php');
 
 // Utilities
 require_once('inc/Utility/PDOAgent.class.php');
-require_once('inc/Utility/CustomerMapper.class.php');
-require_once('inc/Utility/ReservationMapper.class.php');
-require_once('inc/Utility/RestaurantMapper.class.php');
-require_once('inc/Utility/TableMapper.class.php');
+require_once('inc/Mapper/CustomerMapper.class.php');
+require_once('inc/Mapper/ReservationMapper.class.php');
+require_once('inc/Mapper/RestaurantMapper.class.php');
+require_once('inc/Mapper/TableMapper.class.php');
 require_once('inc/Utility/Page.class.php');
 
 Page::$title = "Group Project - Restaurant";
