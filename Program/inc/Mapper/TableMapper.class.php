@@ -10,7 +10,21 @@
 // +--------------+-------------+------+-----+---------+----------------+
 
 Class TableMapper {
-    
+    //Hold the database connection
+    private static $db;
+
+    //Initialize the PDO class with the mapper class
+    static function initialize(string $className) {
+        self::$db = new PDOAgent($className);
+    }
+
+    //Function to retrieve all customers
+    static function getDiningTables() {
+        $SQLQuery = "SELECT * FROM DiningTable";
+        self::$db->query($SQLQuery);
+        self::$db->execute();
+        return self::$db->resultSet();
+    }
 }
 
 

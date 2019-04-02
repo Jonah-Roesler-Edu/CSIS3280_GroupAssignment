@@ -21,10 +21,18 @@ Class CustomerMapper {
         self::$db = new PDOAgent($className);
     }
 
+    //Function to retrieve all customers
+    static function getCustomers() {
+        $SQLQuery = "SELECT * FROM Customer";
+        self::$db->query($SQLQuery);
+        self::$db->execute();
+        return self::$db->resultSet();
+    }
+
     //Function to retrieve customer by email
     static function getCustByEmail(string $email) {
         //Create Query
-        $SQLQuery = "SELECT * FROM Customer WHERE Email "
+        $SQLQuery = "SELECT * FROM Customer WHERE Email ";
     }
 
 
