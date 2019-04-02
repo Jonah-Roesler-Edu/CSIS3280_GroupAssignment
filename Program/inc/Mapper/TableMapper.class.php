@@ -25,6 +25,44 @@ Class TableMapper {
         self::$db->execute();
         return self::$db->resultSet();
     }
+
+        //function to create a new Table
+        static function createTable(Table $newTable) {
+            $SQLCreateTable = "INSERT INTO DiningTable (Placement, SeatingNum, RestaurantID)
+            VALUES (:placement, :seatingnum, :restaurantid)";
+    
+            self::$db->query($SQLCreateTable);
+    
+            self::$db->bind(':placement', $newTable->getPlacement());
+            self::$db->bind(':seatingnum', $newTable->getSeatingNum());
+            self::$db->bind(':restaurantid', $newTable->getRestaurantId());
+    
+            self::$db->execute();
+    
+            return self::$db->lastInsertedid();
+        }
+    
+        //function to delete a customer
+        static function deleteTable(int $tableID) {
+            $SQLDeleteCust = "DELETE FROM DiningTable WHERE TableId = :tableid;";
+    
+            self::$db->query($SQLDeleteCust);
+            self::$db->bind(':tableid', $tableID);
+            self::$db->execute();
+    
+            
+            // if(self::$db->rowCount() !=1) {
+            //     throw new Exception("Unable to delete customer at $email");
+            // }
+    
+            // try {
+    
+            // }
+            // catch (Exception $e) {
+            //     echo $e->getMessage();
+            //     self::$db->debugDumpParams();
+            // }
+        }
 }
 
 

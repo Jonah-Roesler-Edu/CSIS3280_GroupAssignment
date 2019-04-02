@@ -27,6 +27,43 @@ Class RestaurantMapper {
         self::$db->execute();
         return self::$db->resultSet();
     }
+
+        //function to create a new Restaurant
+        static function createRestaurant(Restaurant $newRestaurant) {
+            $SQLCreateRestaurant = "INSERT INTO Restaurant (Name, TimeOpen, TimeClose, DayOpen, DayClose)
+            VALUES (:name, :timeopen, :timeclose, :dayopen, :dayclose)";
+    
+            self::$db->query($SQLCreateRestaurant);
+    
+            self::$db->bind(':name', $newRestaurant->getName());
+
+    
+            self::$db->execute();
+    
+            return self::$db->lastInsertedid();
+        }
+    
+        //function to delete a Restaurant
+        static function deleteRestaurant(int $restaurantID) {
+            $SQLDeleteRestaurant = "DELETE FROM Restaurant WHERE RestaurantId = :restaurantid;";
+    
+            self::$db->query($SQLDeleteRestaurant);
+            self::$db->bind(':restaurantid', $restaurantID);
+            self::$db->execute();
+    
+            
+            // if(self::$db->rowCount() !=1) {
+            //     throw new Exception("Unable to delete customer at $email");
+            // }
+    
+            // try {
+    
+            // }
+            // catch (Exception $e) {
+            //     echo $e->getMessage();
+            //     self::$db->debugDumpParams();
+            // }
+        }
 }
 
 
