@@ -19,6 +19,7 @@ require_once('inc/Utility/Page.class.php');
 Page::$title = "Group Project - Restaurant";
 Page::header();
 Page::dashboard(5);
-Page::formRestaurant();
+Page::formRestaurant(); 
 Page::footer();
+
 ?>

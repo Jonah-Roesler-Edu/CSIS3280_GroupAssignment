@@ -154,7 +154,7 @@ Class Page {
                 <div class="twelve columns">
                     <label for="name">Restaurant</label>
                     <?php
-                        
+
                     ?>
                     <input class="form-control" type="text" placeholder="Restaurant name" id="name" name="name" value="">
                 </div>
@@ -186,6 +186,7 @@ Class Page {
                         foreach (self::$week as $day) {
                             echo "<option value='".$day."'>".$day."</option>";
                         }
+                        
                     ?>
                     </select>
                 </div>
