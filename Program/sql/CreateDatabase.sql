@@ -3,6 +3,12 @@ DROP DATABASE IF EXISTS restaurantdb;
 CREATE DATABASE restaurantdb;
 use restaurantdb;
 
+/*Clean up just in case*/
+-- DROP TABLE IF EXISTS Restaurant;
+-- DROP TABLE IF EXISTS [Table];
+-- DROP TABLE IF EXISTS ;
+-- DROP TABLE IF EXISTS ;
+
 CREATE TABLE Restaurant ( 
     RestaurantId INT AUTO_INCREMENT NOT NULL,
     Name CHAR(50) NOT NULL,
