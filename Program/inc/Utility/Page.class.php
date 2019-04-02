@@ -1,6 +1,7 @@
 <?php 
 Class Page {
     static public $title = "Please, set the title!";
+    static public $subtitle = "";
     static public $week = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
     static function header() {
         ?>
@@ -101,23 +102,24 @@ Class Page {
         echo "</div>";
     }
 
-    static function formRestaurant(){?>
+    static function formRestaurant(Restaurant $data = null){?>
         <div class="conteniner">
+        <h4><?php echo self::$subtitle; ?></h4>
         <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
             <div class="row">
                 <div class="twelve columns">
                     <label for="name">Restaurant Name</label>
-                    <input class="form-control" type="text" placeholder="Restaurant name" id="name" name="name" value="">
+                    <input class="form-control" type="text" placeholder="Restaurant name" id="name" name="name" value="<?php if($data!=null){echo $data->getName();}?>">
                 </div>
             </div>
             <div class="row">
                 <div class="six columns">
                     <label for="timeOpen">Time Open</label>
-                    <input class="form-control" type="time" placeholder="<?php echo time();?>" id="timeOpen" name="timeOpen" value="">
+                    <input class="form-control" type="time" placeholder="<?php echo time();?>" id="timeOpen" name="timeOpen" value="<?php if($data!=null){ echo date("h:i", $data->getTimeOpen());}?>">
                 </div>
                 <div class="six columns">
                     <label for="timeClose">Time Close</label>
-                    <input class="form-control" type="time" placeholder="<?php echo time();?>" id="timeClose" name="timeClose" value="">
+                    <input class="form-control" type="time" placeholder="<?php echo time();?>" id="timeClose" name="timeClose" value="<?php if($data!=null){echo date("h:i", $data->getTimeClose());}?>">
                 </div>
             </div>
             <div class="row">
@@ -126,7 +128,14 @@ Class Page {
                     <select class="form-control" name="dayOpen" id="dayOpen"><?php
                         foreach (self::$week as $day) {
                             echo $day;
-                            echo "<option value='".$day."'>".$day."</option>";
+                            if ( !isset($data)){
+                                echo "<option value='".$day."'>".$day."</option>";
+                            } elseif ($data->getDayOpen()==$day) {
+                                echo "<option value='".$day."' selected>".$day."</option>";
+                            } else {
+                                echo "<option value='".$day."'>".$day."</option>";
+                            }
+                            
                         }
                     ?>
                     </select>
@@ -135,7 +144,13 @@ Class Page {
                     <label for="dayClose">Day Close</label>
                     <select class="form-control" name="dayClose" id="dayClose"><?php
                         foreach (self::$week as $day) {
-                            echo "<option value='".$day."'>".$day."</option>";
+                            if ( !isset($data)){
+                                echo "<option value='".$day."'>".$day."</option>";
+                            } elseif ($data->getDayClose()==$day) {
+                                echo "<option value='".$day."' selected>".$day."</option>";
+                            } else {
+                                echo "<option value='".$day."'>".$day."</option>";
+                            }
                         }
                     ?>
                     </select>
@@ -147,54 +162,88 @@ Class Page {
     <?php
     }
 
-    static function formReservations($data){?>
+    static function formReservations(Reservation $reservation = null, Customer $customer=null){?>
         <div class="conteniner">
         <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
+        <h4><?php echo self::$subtitle; ?></h4>
             <div class="row">
                 <div class="twelve columns">
-                    <label for="name">Restaurant</label>
-                    <?php
-
-                    ?>
-                    <input class="form-control" type="text" placeholder="Restaurant name" id="name" name="name" value="">
+                    <label for="numPeople">Table Size</label>
+                    <input class="form-control" type="number" placeholder="Table size" id="numPeople" name="numPeople" value="<?php if($reservation!=null){echo $reservation->getNumPeople();}?>">
                 </div>
             </div>
             <div class="row">
                 <div class="six columns">
-                    <label for="timeOpen">Time Open</label>
-                    <input class="form-control" type="time" placeholder="<?php echo time();?>" id="timeOpen" name="timeOpen" value="">
+                    <label for="date">Date</label>
+                    <input class="form-control" type="date" placeholder="<?php echo date("Y-m-d");?>" id="date" name="date" value="<?php if($reservation!=null){echo $reservation->getDate();}?>">
                 </div>
                 <div class="six columns">
-                    <label for="timeClose">Time Close</label>
-                    <input class="form-control" type="time" placeholder="<?php echo time();?>" id="timeClose" name="timeClose" value="">
+                    <label for="time">Time</label>
+                    <input class="form-control" type="time" placeholder="<?php echo date("h:i");?>" id="time" name="time" value="<?php if($reservation!=null){echo date("h:i", $reservation->getTime());}?>">
+                </div>
+            </div>
+            <h4>Customer Info</h4>
+            <div class="row">
+                <div class="six columns">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" placeholder="Customer name" id="name" name="name" value="<?php if($customer!=null){echo $customer->getName();}?>">
+                    </select>
+                </div>
+                <div class="six columns">
+                    <label for="lastname">Lastname</label>
+                    <input class="form-control" type="text" placeholder="Customer lastname" id="lastname" name="lastname" value="<?php if($customer!=null){echo $customer->getLastName();}?>">
                 </div>
             </div>
             <div class="row">
                 <div class="six columns">
-                    <label for="dayOpen">Day Open</label>
-                    <select class="form-control" name="dayOpen" id="dayOpen"><?php
-                        foreach (self::$week as $day) {
-                            echo $day;
-                            echo "<option value='".$day."'>".$day."</option>";
-                        }
-                    ?>
+                    <label for="email">Email</label>
+                    <input class="form-control" type="email" placeholder="Customer email" id="email" name="email" value="<?php if($customer!=null){echo $customer->getEmail();}?>">
                     </select>
                 </div>
                 <div class="six columns">
-                    <label for="dayClose">Day Close</label>
-                    <select class="form-control" name="dayClose" id="dayClose"><?php
-                        foreach (self::$week as $day) {
-                            echo "<option value='".$day."'>".$day."</option>";
-                        }
-                        
-                    ?>
-                    </select>
                 </div>
             </div>
             <input class="btn btn-primary" type="submit" name="submit" value="Submit">
         </form>
         </div>
     <?php
+    }
+
+    static function showReservations($data){
+        echo "<div class='conteniner'>";
+        echo "<h4>Reservations for today</h4>";
+        $a=0;
+        foreach ($data as $reservations) {
+            $rest = count($data)-$a;
+            if ($rest>=3) {
+                echo "<div class='row'>";
+                    echo "<div class='four columns'>";
+                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<div class='four columns'>";
+                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<div class='four columns'>";
+                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                echo "</div>";
+            } 
+            if ($rest==2) {
+                echo "<div class='row'>";
+                    echo "<div class='four columns'>";
+                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<div class='four columns'>";
+                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<div class='four columns'></div>";
+                echo "</div>";
+            }elseif ($rest==1) {
+                echo "<div class='row'>";
+                    echo "<div class='four columns'>";
+                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<div class='four columns'></div>";
+                    echo "<div class='four columns'></div>";
+                echo "</div>";
+            }
+            $a+=3;
+        }   
+        echo "</div>";   
     }
 
     static function footer() {

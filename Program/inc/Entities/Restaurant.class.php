@@ -17,11 +17,11 @@ class Restaurant{
         return $this->Name;
     }
 
-    function getTimeOpen() : time{
+    function getTimeOpen() : string{
         return $this->TimeOpen;
     }
 
-    function getTimeClose() : time{
+    function getTimeClose() : string{
         return $this->TimeClose;
     }
 
@@ -42,11 +42,11 @@ class Restaurant{
         $this->Name = $newName;
     }
 
-    function setTimeOpen(time $newTimeOpen){
+    function setTimeOpen(string $newTimeOpen){
         $this->TimeOpen = $newTimeOpen;
     }
 
-    function setTimeClose(time $newTimeClose){
+    function setTimeClose(string $newTimeClose){
         $this->TimeClose = $newTimeClose;
     }
 

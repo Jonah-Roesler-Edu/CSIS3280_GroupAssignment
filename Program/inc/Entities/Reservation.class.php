@@ -25,11 +25,11 @@ class Reservation{
         return $this->CustomerId;
     }
 
-    function getDate() : date{
+    function getDate() : string{
         return $this->Date;
     }
 
-    function getTime() : time{
+    function getTime() : string{
         return $this->Time;
     }
 
@@ -50,11 +50,11 @@ class Reservation{
         $this->CustomerId = $newCustomerId;
     }
 
-    function setDate(date $newDate){
+    function setDate(string $newDate){
         $this->Date = $newDate;
     }
 
-    function setTime(time $newTime){
+    function setTime(string $newTime){
         $this->Time = $newTime;
     }
 
