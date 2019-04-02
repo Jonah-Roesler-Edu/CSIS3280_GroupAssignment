@@ -35,6 +35,45 @@ Class CustomerMapper {
         $SQLQuery = "SELECT * FROM Customer WHERE Email ";
     }
 
+    //function to create a new customer
+    static function createCustomer(Customer $newCustomer) {
+        $SQLCreateCust = "INSERT INTO Customer (Name, LastName, Email)
+        VALUES (:name, :lastname, :email)";
+
+        self::$db->query($SQLCreateCust);
+
+        self::$db->bind(':name', $newCustomer->getName());
+        self::$db->bind(':lastname', $newCustomer->getLastName());
+        self::$db->bind(':name', $newCustomer->getEmail());
+
+        self::$db->execute();
+
+        return self::$db->lastInsertedid();
+    }
+
+    //function to delete a customer
+    static function deleteCustomer(string $email) {
+        $SQLDeleteCust = "DELETE FROM Customer WHERE Email = :email;";
+
+        self::$db->query($SQLDeleteCust);
+        self::$db->bind(':email', $email);
+        self::$db->execute();
+
+        
+        // if(self::$db->rowCount() !=1) {
+        //     throw new Exception("Unable to delete customer at $email");
+        // }
+
+        // try {
+
+        // }
+        // catch (Exception $e) {
+        //     echo $e->getMessage();
+        //     self::$db->debugDumpParams();
+        // }
+    }
+
+
 
 
 }
