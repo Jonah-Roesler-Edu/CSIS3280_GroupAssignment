@@ -26,6 +26,8 @@ private $error;
 //Prepared Statement
 private $stmt;
 
+private $pdo;
+
 public function __construct(string $className)  {
 
     //Copy the class name
@@ -101,8 +103,8 @@ public function bind($param, $value, $type = null)  {
        return $this->stmt->rowCount();
    }
    //Return the lastInsertedID
-   public function lastInsertedId() : int{
-       return $this->pdo->lastInsertedId();
+   public function lastInsertId() : int{
+       return $this->pdo->lastInsertId();
 
    }
    //Get the debug info

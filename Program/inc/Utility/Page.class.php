@@ -59,17 +59,17 @@ Class Page {
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
                 echo "<h4>".$restaurants[$a]->getName()."</h4>";
                 echo "<h6>Books today ".$reservations[$restaurants[$a]->getName()]."</h6>";
-                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&RestaurantChoice=".$restaurants[$a]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
                 echo "<h4>".$restaurants[$a+1]->getName()."</h4>";
                 echo "<h6>Books today ".$reservations[$restaurants[$a+1]->getName()]."</h6>";
-                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a+1]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&RestaurantChoice=".$restaurants[$a+1]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
                 echo "<h4>".$restaurants[$a+2]->getName()."</h4>";
                 echo "<h6>Books today ".$reservations[$restaurants[$a+2]->getName()]."</h6>";
-                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a+2]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&RestaurantChoice=".$restaurants[$a+2]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "</div>";
             } 
             if ($rest==2) {
@@ -78,12 +78,12 @@ Class Page {
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
                 echo "<h4>".$restaurants[$a]->getName()."</h4>";
                 echo "<h6>Books today ".$reservations[$restaurants[$a]->getName()]."</h6>";
-                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&RestaurantChoice=".$restaurants[$a]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
                 echo "<h4>".$restaurants[$a+1]->getName()."</h4>";
                 echo "<h6>Books today ".$reservations[$restaurants[$a+1]->getName()]."</h6>";
-                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a+1]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&RestaurantChoice=".$restaurants[$a+1]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'></div>";
                 echo "</div>";
             }else if ($rest==1) {
@@ -92,7 +92,7 @@ Class Page {
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
                 echo "<h4>".$restaurants[$a]->getName()."</h4>";
                 echo "<h6>Books today ".$reservations[$restaurants[$a]->getName()]."</h6>";
-                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&RestaurantChoice=".$restaurants[$a]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'></div>";
                 echo "<div class='four columns'></div>";
                 echo "</div>";
@@ -163,7 +163,7 @@ Class Page {
     <?php
     }
 
-    static function formReservations(Reservation $reservation = null, Customer $customer=null){?>
+    static function formReservations(Reservation $reservation = null, Customer $customer=null, $TableArray=null){?>
         <div class="container">
         <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <h4><?php echo self::$subtitle; ?></h4>
@@ -173,11 +173,13 @@ Class Page {
                     <input class="form-control" type="number" placeholder="Table size" id="numPeople" name="numPeople" value="<?php if($reservation!=null){echo $reservation->getNumPeople();}?>">
                 </div>
                 <div class="six columns">
-                    <label for="restaurantName">RestaurantName</label>
-                    <!-- <input class="form-control" type="number" placeholder="RestaurantName" id="RestaurantName" name="numPeople" value="<?php if($reservation!=null){echo $reservation->getNumPeople();}?>"> -->
-                    <select name = "restaurantName" id = "restaurantName">
-                        <option value = 1>Rafael's Diner</option>
-                        <option value = 2>Johnny's Diner</option>
+                    <label for="restaurantTables">Restaurant tables</label>
+                    <select name = "restaurantTables" id = "restaurantTables">
+                        <?php 
+                        foreach($TableArray as $table) {
+                            echo '<option value ="'. $table->getTableId().'" >' .$table->getTableId(). ':' . $table->getPlacement(). '</option>';   
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -221,32 +223,32 @@ Class Page {
 
     static function showReservations($data){
         echo "<div class='container'>";
-        echo "<h4>Reservations for today</h4>";
+        echo "<h4>Reservations Done</h4>";
         $a=0;
-        foreach ($data as $reservations) {
+        while ($a <= count($data)) {
             $rest = count($data)-$a;
             if ($rest>=3) {
                 echo "<div class='row'>";
                     echo "<div class='four columns'>";
-                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<h5>".date("Y-M-d",strtotime($data[$a]->getDate()))."</h5><h6>".$data[$a]->getTime()."</h6></div>";
                     echo "<div class='four columns'>";
-                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<h5>".date("Y-M-d",strtotime($data[$a+1]->getDate()))."</h5><h6>".$data[$a+1]->getTime()."</h6></div>";
                     echo "<div class='four columns'>";
-                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<h5>".date("Y-M-d",strtotime($data[$a+2]->getDate()))."</h5><h6>".$data[$a+2]->getTime()."</h6></div>";
                 echo "</div>";
             } 
             if ($rest==2) {
                 echo "<div class='row'>";
                     echo "<div class='four columns'>";
-                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<h5>".date("Y-M-d",strtotime($data[$a]->getDate()))."</h5><h6>".$data[$a]->getTime()."</h6></div>";
                     echo "<div class='four columns'>";
-                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<h5>".date("Y-M-d",strtotime($data[$a+1]->getDate()))."</h5><h6>".$data[$a+1]->getTime()."</h6></div>";
                     echo "<div class='four columns'></div>";
                 echo "</div>";
             }elseif ($rest==1) {
                 echo "<div class='row'>";
                     echo "<div class='four columns'>";
-                    echo "<h5>".date("h:i a", $reservations->getTime())."</h5></div>";
+                    echo "<h5>".date("Y-M-d",strtotime($data[$a]->getDate()))."</h5><h6>".$data[$a]->getTime()."</h6></div>";
                     echo "<div class='four columns'></div>";
                     echo "<div class='four columns'></div>";
                 echo "</div>";

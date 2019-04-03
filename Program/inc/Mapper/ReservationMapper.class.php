@@ -28,6 +28,16 @@ Class ReservationMapper {
         return self::$db->resultSet();
     }
 
+    static function getReservationByRestaurant(int $id) : Array{
+        $SQLQuery = "SELECT reservation.ReservationId, reservation.NumPeople, reservation.DATE, reservation.Time, reservation.TableId, reservation.CustomerId FROM reservation INNER JOIN diningtable ON reservation.TableId = diningtable.TableId inner join restaurant on restaurant.RestaurantId = diningtable.RestaurantId WHERE diningtable.RestaurantId = :id";
+        self::$db->query($SQLQuery);
+        self::$db->bind(':id', $id);
+        self::$db->execute();
+        return self::$db->resultSet();
+    }
+
+    
+
         //function to create a new Reservation
         static function createReservation(Reservation $newReservation) {
 
@@ -47,7 +57,7 @@ Class ReservationMapper {
     
             self::$db->execute();
     
-            return self::$db->lastInsertedid();
+            return self::$db->lastInsertId();
         }
     
         //function to delete a reservation

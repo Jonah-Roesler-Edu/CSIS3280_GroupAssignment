@@ -5,7 +5,7 @@ class Reservation{
     private $TableId;
     private $NumPeople;
     private $CustomerId;
-    private $Date;
+    private $DATE;
     private $Time;
 
     // getters
@@ -25,8 +25,8 @@ class Reservation{
         return $this->CustomerId;
     }
 
-    function getDate() : string{
-        return $this->Date;
+    function getDATE() : string{
+        return $this->DATE;
     }
 
     function getTime() : string{
@@ -50,8 +50,8 @@ class Reservation{
         $this->CustomerId = $newCustomerId;
     }
 
-    function setDate(string $newDate){
-        $this->Date = $newDate;
+    function setDATE(string $newDATE){
+        $this->DATE = $newDATE;
     }
 
     function setTime(string $newTime){
@@ -65,7 +65,7 @@ class Reservation{
         $obj->TableId = getTableId();
         $obj->NumPeolpe = getNumPeople();
         $obj->CustomerId = getCustomerId();
-        $obj->Date = getDate();
+        $obj->DATE = getDate();
         $obj->Time = getTime();
         return $obj;
     }
