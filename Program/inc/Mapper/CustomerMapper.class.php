@@ -36,7 +36,7 @@ Class CustomerMapper {
     }
 
     //function to create a new customer
-    static function createCustomer(Customer $newCustomer) {
+    static function createCustomer(Customer $newCustomer) : int {
         $SQLCreateCust = "INSERT INTO Customer (Name, LastName, Email)
         VALUES (:name, :lastname, :email)";
 

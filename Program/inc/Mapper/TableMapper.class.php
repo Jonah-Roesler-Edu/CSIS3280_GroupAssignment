@@ -26,9 +26,17 @@ Class TableMapper {
         return self::$db->resultSet();
     }
 
-    // //function to get tables based on restaurant
-    // static function getRestaurantTables() {
-    //     $SQLSelectTables = ""
+    //function to get tables based on restaurant number
+    static function getRestaurantTables(int $RestaurantID) {
+        $SQLFindTables = "SELECT * FROM DiningTable WHERE RestaurantId = :restaurantid";
+
+        self::$db->query($SQLFindTables);
+        self::$db->bind(':restaurantid', $RestaurantID);
+        self::$db->execute();
+
+        return self::$db->resultset();
+    }
+
     // }
 
         //function to create a new diningTable
