@@ -51,15 +51,16 @@ Class Page {
     static function dashboard($data){
         echo "<div class='conteniner'>";
         $a=0;
-        while ($a <= $data) {
-            $rest = $data-$a;
+        $rCount=0;
+        while ($a <= count($data)) {
+            $rest = count($data)-$a;
             if ($rest>=3) {
                 echo "<div class='row'>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
-                echo "<h4>Restaurant ".($a+1)."</h4>";
+                echo "<h4>".$data->getRestaurantName()."</h4>";
                 echo "<h6>Books today</h6>";
-                echo "<a href='#' style='float: right;'>Book a table</a></div>";
+                echo "<a href='?restaurant=".$data->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
                 echo "<h4>Restaurant ".($a+2)."</h4>";
@@ -67,18 +68,19 @@ Class Page {
                 echo "<a href='#' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
-                echo "<h4>Restaurant ".($a+3)."</h4>";
+                // echo "<h4>Restaurant ".($a+3)."</h4>";
+                echo "<h4>".$data->getRestaurantName()."</h4>";
                 echo "<h6>Books today</h6>";
-                echo "<a href='#' style='float: right;'>Book a table</a></div>";
+                echo "<a href='?restaurant=".$data->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "</div>";
             } 
             if ($rest==2) {
                 echo "<div class='row'>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
-                echo "<h4>Restaurant ".($a+1)."</h4>";
+                echo "<h4>Restaurant ".$data[$rCount++]->getName()."</h4>";
                 echo "<h6>Books today</h6>";
-                echo "<a href='#' style='float: right;'>Book a table</a></div>";
+                echo "<a href='?restaurant=".$data[$rCount++]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
                 echo "<h4>Restaurant ".($a+2)."</h4>";

@@ -22,11 +22,16 @@ RestaurantMapper::initialize("Restaurant");
 TableMapper::initialize("Table");
 
 
+Page::$title = "Group Project - Restaurant";
+Page::header();
+$restaurantArray = RestaurantMapper::getRestaurants();
+Page::dashboard($restaurantArray);
+
 if(!empty($_GET)) {
     //RESTAURANT CHOICE IS A PLACEHOLDER FOR WHEN VALUES ARE CREATED
     //Print the form for booking a table
-    $tableArray = TableMapper::getRestaurantTables($_GET['RestaurantChoice']);
-    $restaurant = RestaurantMapper::getOneRestaurant($_GET['RestaurantChoice']);
+    $tableArray = TableMapper::getRestaurantTables($_GET['restaurant']);
+    $restaurant = RestaurantMapper::getOneRestaurant($_GET['restaurant']);
     Page::$subtitle = $restaurant->getName();
     Page::formReservations(null,null, $tableArray);
 
@@ -35,20 +40,23 @@ if(!empty($_GET)) {
 if(!empty($_POST)) {
     switch($_POST['flag']) {
         case 'fReservation':
-        $newCust = new Customer;
-        $newCust->setName($_POST['name']);
-        $newCust->setLastName($_POST['lastname']);
-        $newCust->setEmail($_POST['email']);
 
-        $customerID = CustomerMapper::createCustomer($newCust);
+        if(CustomerMapper::getCustByEmail($_POST['email']) == null) {
+            $newCust = new Customer;
+            $newCust->setName($_POST['name']);
+            $newCust->setLastName($_POST['lastname']);
+            $newCust->setEmail($_POST['email']);
+    
+            CustomerMapper::createCustomer($newCust);
+        }
 
-        //$getCustomer = CustomerMapper::getCustByEmail($_POST['email']);
+        $getCustomer = CustomerMapper::getCustByEmail($_POST['email']);
 
         $newRes = new Reservation;
         $newRes->setNumPeople($_POST["numPeople"]);
         $newRes->setDate($_POST["date"]);
         $newRes->setTime($_POST["time"]);
-        $newRes->setCustomerId($customerID);
+        $newRes->setCustomerId($getCustomer->getCustomerId());
         $newRes->setTableId($_POST['restaurantTables']);
         
 
@@ -60,6 +68,9 @@ if(!empty($_POST)) {
 
         // case 'fTable':
         // break;
+
+        case 'fDeleteReservation':
+        break;
 
     }
 
@@ -74,8 +85,8 @@ $tableArray = TableMapper::getRestaurantTables(1);
 
 
 
-Page::$title = "Group Project - Restaurant";
-Page::header();
+// Page::$title = "Group Project - Restaurant";
+// Page::header();
 // Page::dashboard(5);
 Page::$subtitle = "New Restaurant";
 // Page::formRestaurant(); 
@@ -112,10 +123,14 @@ $nc->setEmail("rafa@douglas.com");
 Page::$subtitle = "Edit Reservation";
 
 //WHEN RESTAURANT IS CHOSEN
-$tableArray = TableMapper::getRestaurantTables(1);
-//var_dump($tableArray);
-Page::formReservations($nr,$nc, $tableArray);
-Page::showReservations(array($nr, $nr2, $tableArray));
+// $tableArray = TableMapper::getRestaurantTables(1);
+ //var_dump($tableArray);
+// Page::formReservations($nr,$nc, $tableArray);
+// Page::showReservations(array($nr, $nr2, $tableArray));
+
+// $restaurantArray = RestaurantMapper::getRestaurants();
+
+// Page::dashboard($restaurantArray);
 Page::footer();
 
 ?>

@@ -101,10 +101,9 @@ public function bind($param, $value, $type = null)  {
        return $this->stmt->rowCount();
    }
    //Return the lastInsertedID
-   public function lastInsertedId() : int{
-       return $this->pdo->lastInsertedId();
-
-   }
+    public function lastInsertedId() : int {
+        return $this->pdo->lastInsertedId;
+    }
    //Get the debug info
    public function debugDumpParams()    {
        return $this->stmt->debugDumpParams();

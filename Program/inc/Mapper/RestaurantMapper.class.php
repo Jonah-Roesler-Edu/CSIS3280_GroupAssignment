@@ -31,7 +31,7 @@ Class RestaurantMapper {
     //Get Certain restaurant
     static function getOneRestaurant($restaurantID) {
         $SQLGetRestaurant = "SELECT * FROM Restaurant WHERE RestaurantId = :restaurant";
-        self::$db->query($SQLQuery);
+        self::$db->query($SQLGetRestaurant);
         self::$db->bind(':restaurant', $restaurantID);
         self::$db->execute();
         return self::$db->singleResult();
@@ -49,7 +49,7 @@ Class RestaurantMapper {
 
         self::$db->execute();
 
-        return self::$db->lastInsertedid();
+        // return self::$db->lastInsertedId();
     }
     
     //function to delete a Restaurant

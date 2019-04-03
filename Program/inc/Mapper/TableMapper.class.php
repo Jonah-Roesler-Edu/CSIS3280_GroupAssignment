@@ -52,7 +52,7 @@ Class TableMapper {
     
             self::$db->execute();
     
-            return self::$db->lastInsertedid();
+            // return self::$db->lastInsertedid();
         }
     
         //function to delete a diningtable

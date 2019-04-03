@@ -47,7 +47,7 @@ Class ReservationMapper {
     
             self::$db->execute();
     
-            return self::$db->lastInsertedid();
+            // return self::$db->lastInsertedId();
         }
     
         //function to delete a reservation
@@ -70,6 +70,20 @@ Class ReservationMapper {
             //     echo $e->getMessage();
             //     self::$db->debugDumpParams();
             // }
+        }
+
+        //function to find reservations based on customer email
+        static function customerReservations($customerID) {
+            //step 1 find the customer Inside customer mapper
+
+            //step 2 get the reservations
+            $SQLCustomerReserve = "SELECT * FROM Reservation WHERE CustomerId = :customerid";
+
+            self::$db->query($SQLCustomerReserve);
+            self::$db->bind(':customerid', $customerID);
+            self::$db->execute();
+
+            return self::$db->resultSet();
         }
 }
 

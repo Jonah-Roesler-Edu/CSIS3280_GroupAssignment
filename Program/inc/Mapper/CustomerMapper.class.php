@@ -32,7 +32,11 @@ Class CustomerMapper {
     //Function to retrieve customer by email
     static function getCustByEmail(string $email) {
         //Create Query
-        $SQLQuery = "SELECT * FROM Customer WHERE Email ";
+        $SQLQuery = "SELECT * FROM Customer WHERE Email = :email";
+        self::$db->query($SQLQuery);
+        self::$db->bind(':email', $email);
+        self::$db->execute();
+        return self::$db->singleResult();
     }
 
     //function to create a new customer
@@ -44,11 +48,11 @@ Class CustomerMapper {
 
         self::$db->bind(':name', $newCustomer->getName());
         self::$db->bind(':lastname', $newCustomer->getLastName());
-        self::$db->bind(':name', $newCustomer->getEmail());
+        self::$db->bind(':email', $newCustomer->getEmail());
 
         self::$db->execute();
 
-        return self::$db->lastInsertedid();
+        // return self::$db->lastInsertedId();
     }
 
     //function to delete a customer
