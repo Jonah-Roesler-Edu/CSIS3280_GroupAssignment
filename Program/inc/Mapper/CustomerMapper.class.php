@@ -36,9 +36,8 @@ Class CustomerMapper {
     }
 
     //function to create a new customer
-    static function createCustomer(Customer $newCustomer) {
-        $SQLCreateCust = "INSERT INTO Customer (Name, LastName, Email)
-        VALUES (:name, :lastname, :email)";
+    static function createCustomer(Customer $newCustomer) : int {
+        $SQLCreateCust = "INSERT INTO Customer (Name, LastName, Email) VALUES (:name, :lastname, :email)";
 
         self::$db->query($SQLCreateCust);
 
@@ -48,7 +47,6 @@ Class CustomerMapper {
 
         self::$db->execute();
 
-        //return self::$db->lastInsertedId();
         return self::$db->lastInsertId();
     }
 
