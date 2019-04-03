@@ -235,15 +235,15 @@ Class Page {
             if ($rest>=3) {
                 echo "<div class='row'>";
                     echo "<div class='four columns' style='border: 1px solid black;padding: 10px;border-radius: 20px;'>";
-                    echo "<h5>".date("M d Y",strtotime($data[$a]->getDate()))."</h5><h6>".$data[$a]->getTime()."</h6>";
+                    echo "<p>".date("M d Y",strtotime($data[$a]->getDate()))."</p><p>".$data[$a]->getTime()."</p>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=deleteReservation&reservationId=".$data[$a]->getReservationId()."'><img src='Imagens/delete.png' alt='Delete' style='width: 30px; float: right'></a>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=editReservation&reservationId=".$data[$a]->getReservationId()."'><img src='Imagens/edit.png' alt='Edit' style='width: 30px'></a></div>";
                     echo "<div class='four columns' style='border: 1px solid black;padding: 10px;border-radius: 20px;'>";
-                    echo "<h5>".date("M d Y",strtotime($data[$a+1]->getDate()))."</h5><h6>".$data[$a+1]->getTime()."</h6>";
+                    echo "<p>".date("M d Y",strtotime($data[$a+1]->getDate()))."</p><p>".$data[$a+1]->getTime()."</p>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=deleteReservation&reservationId=".$data[$a+1]->getReservationId()."'><img src='Imagens/delete.png' alt='Delete' style='width: 30px; float: right'></a>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=editReservation&reservationId=".$data[$a+1]->getReservationId()."'><img src='Imagens/edit.png' alt='Edit' style='width: 30px'></a></div>";
                     echo "<div class='four columns' style='border: 1px solid black;padding: 10px;border-radius: 20px;'>";
-                    echo "<h5>".date("M d Y",strtotime($data[$a+2]->getDate()))."</h5><h6>".$data[$a+2]->getTime()."</h6>";
+                    echo "<p>".date("M d Y",strtotime($data[$a+2]->getDate()))."</p><p>".$data[$a+2]->getTime()."</p>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=deleteReservation&reservationId=".$data[$a+2]->getReservationId()."'><img src='Imagens/delete.png' alt='Delete' style='width: 30px; float: right'></a>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=editReservation&reservationId=".$data[$a+2]->getReservationId()."'><img src='Imagens/edit.png' alt='Edit' style='width: 30px'></a></div>";
                 echo "</div>";
@@ -251,11 +251,11 @@ Class Page {
             if ($rest==2) {
                 echo "<div class='row'>";
                 echo "<div class='four columns' style='border: 1px solid black;padding: 10px;border-radius: 20px;'>";
-                    echo "<h5>".date("M d Y",strtotime($data[$a]->getDate()))."</h5><h6>".$data[$a]->getTime()."</h6>";
+                    echo "<p>".date("M d Y",strtotime($data[$a]->getDate()))."</p><p>".$data[$a]->getTime()."</p>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=deleteReservation&reservationId=".$data[$a]->getReservationId()."'><img src='Imagens/delete.png' alt='Delete' style='width: 30px; float: right'></a>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=editReservation&reservationId=".$data[$a]->getReservationId()."'><img src='Imagens/edit.png' alt='Edit' style='width: 30px'></a></div>";
                     echo "<div class='four columns' style='border: 1px solid black;padding: 10px;border-radius: 20px;'>";
-                    echo "<h5>".date("M d Y",strtotime($data[$a+1]->getDate()))."</h5><h6>".$data[$a+1]->getTime()."</h6>";
+                    echo "<p>".date("M d Y",strtotime($data[$a+1]->getDate()))."</p><p>".$data[$a+1]->getTime()."</p>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=deleteReservation&reservationId=".$data[$a+1]->getReservationId()."'><img src='Imagens/delete.png' alt='Delete' style='width: 30px; float: right'></a>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=editReservation&reservationId=".$data[$a+1]->getReservationId()."'><img src='Imagens/edit.png' alt='Edit' style='width: 30px'></a></div>";
                     echo "<div class='four columns'></div>";
@@ -263,7 +263,7 @@ Class Page {
             }elseif ($rest==1) {
                 echo "<div class='row'>";
                 echo "<div class='four columns' style='border: 1px solid black;padding: 10px;border-radius: 20px;'>";
-                    echo "<h5>".date("M d Y",strtotime($data[$a]->getDate()))."</h5><h6>".$data[$a]->getTime()."</h6>";
+                    echo "<p>".date("M d Y",strtotime($data[$a]->getDate()))."</p><p>".$data[$a]->getTime()."</p>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=deleteReservation&reservationId=".$data[$a]->getReservationId()."'><img src='Imagens/delete.png' alt='Delete' style='width: 30px; float: right'></a>";
                     echo "<a href='".$_SERVER["PHP_SELF"]."?action=editReservation&reservationId=".$data[$a]->getReservationId()."'><img src='Imagens/edit.png' alt='Edit' style='width: 30px'></a></div>";
                     echo "<div class='four columns'></div>";
