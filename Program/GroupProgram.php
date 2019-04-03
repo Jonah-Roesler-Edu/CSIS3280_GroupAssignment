@@ -133,6 +133,14 @@ if (count($_GET) == 0) {
         //var_dump($tableArray);
         Page::formReservations($reservation[0], $customer[0], $tableArray);
     }
+    else if ($_GET["action"] == "deleteReservation") {
+        ReservationMapper::deleteReservation($_GET["reservationId"]);
+        unset($_GET["action"]);
+        unset($_GET["reservationId"]);
+        var_dump($_GET);
+
+        header("location:GroupProgram.php");
+    }
     else {
 
         $nrt = new Restaurant();
