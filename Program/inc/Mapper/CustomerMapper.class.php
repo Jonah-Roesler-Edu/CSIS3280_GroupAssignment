@@ -44,11 +44,12 @@ Class CustomerMapper {
 
         self::$db->bind(':name', $newCustomer->getName());
         self::$db->bind(':lastname', $newCustomer->getLastName());
-        self::$db->bind(':name', $newCustomer->getEmail());
+        self::$db->bind(':email', $newCustomer->getEmail());
 
         self::$db->execute();
 
-        return self::$db->lastInsertedid();
+        //return self::$db->lastInsertedId();
+        return self::$db->lastInsertId();
     }
 
     //function to delete a customer
