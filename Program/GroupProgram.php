@@ -19,7 +19,7 @@ require_once('inc/Utility/Page.class.php');
 CustomerMapper::initialize("Customer");
 ReservationMapper::initialize("Reservation");
 RestaurantMapper::initialize("Restaurant");
-TableMapper::initialize("Restaurant");
+TableMapper::initialize("Table");
 
 
 if(!empty($_POST)) {
