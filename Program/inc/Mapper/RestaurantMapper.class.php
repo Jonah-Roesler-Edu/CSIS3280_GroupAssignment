@@ -21,7 +21,7 @@ Class RestaurantMapper {
     }
 
     //Function to retrieve all customers
-    static function getRestaurant() {
+    static function getRestaurant() : Array{
         $SQLQuery = "SELECT * FROM Restaurant";
         self::$db->query($SQLQuery);
         self::$db->execute();

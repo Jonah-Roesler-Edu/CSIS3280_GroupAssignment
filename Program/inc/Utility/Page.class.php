@@ -41,58 +41,58 @@ Class Page {
         <div class="container">
             <div class="row">
             <div class="twelve columns" style="margin-top: 5%">
-            <div class="seven columns"><h2><?php echo self::$title; ?></h2></div><div class="five columns"><a href="#">For Restaurants</a> <input type="button" value="Sign in"> <input type="button" value="Sign up"></div>
+            <div class="seven columns"><h2><?php echo self::$title; ?></h2></div><div class="five columns"><a href="<?php echo $_SERVER["PHP_SELF"]."?action=forRestaurants";?>" style="float:right">For Restaurants</a></div>
             </div>
 
 <?php
 
     }
 
-    static function dashboard($data){
+    static function dashboard($restaurants, $reservations){
         echo "<div class='conteniner'>";
         $a=0;
-        while ($a <= $data) {
-            $rest = $data-$a;
+        while ($a <= count($restaurants)) {
+            $rest = count($restaurants)-$a;
             if ($rest>=3) {
                 echo "<div class='row'>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
-                echo "<h4>Restaurant ".($a+1)."</h4>";
-                echo "<h6>Books today</h6>";
-                echo "<a href='#' style='float: right;'>Book a table</a></div>";
+                echo "<h4>".$restaurants[$a]->getName()."</h4>";
+                echo "<h6>Books today ".$reservations[$restaurants[$a]->getName()]."</h6>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
-                echo "<h4>Restaurant ".($a+2)."</h4>";
-                echo "<h6>Books today</h6>";
-                echo "<a href='#' style='float: right;'>Book a table</a></div>";
+                echo "<h4>".$restaurants[$a+1]->getName()."</h4>";
+                echo "<h6>Books today ".$reservations[$restaurants[$a+1]->getName()]."</h6>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a+1]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
-                echo "<h4>Restaurant ".($a+3)."</h4>";
-                echo "<h6>Books today</h6>";
-                echo "<a href='#' style='float: right;'>Book a table</a></div>";
+                echo "<h4>".$restaurants[$a+2]->getName()."</h4>";
+                echo "<h6>Books today ".$reservations[$restaurants[$a+2]->getName()]."</h6>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a+2]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "</div>";
             } 
             if ($rest==2) {
                 echo "<div class='row'>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
-                echo "<h4>Restaurant ".($a+1)."</h4>";
-                echo "<h6>Books today</h6>";
-                echo "<a href='#' style='float: right;'>Book a table</a></div>";
+                echo "<h4>".$restaurants[$a]->getName()."</h4>";
+                echo "<h6>Books today ".$reservations[$restaurants[$a]->getName()]."</h6>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
-                echo "<h4>Restaurant ".($a+2)."</h4>";
-                echo "<h6>Books today</h6>";
-                echo "<a href='#' style='float: right;'>Book a table</a></div>";
+                echo "<h4>".$restaurants[$a+1]->getName()."</h4>";
+                echo "<h6>Books today ".$reservations[$restaurants[$a+1]->getName()]."</h6>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a+1]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'></div>";
                 echo "</div>";
             }else if ($rest==1) {
                 echo "<div class='row'>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
-                echo "<h4>Restaurant ".($a+1)."</h4>";
-                echo "<h6>Books today</h6>";
-                echo "<a href='#' style='float: right;'>Book a table</a></div>";
+                echo "<h4>".$restaurants[$a]->getName()."</h4>";
+                echo "<h6>Books today ".$reservations[$restaurants[$a]->getName()]."</h6>";
+                echo "<a href='".$_SERVER["PHP_SELF"]."?action=newReservation&id=".$restaurants[$a]->getRestaurantId()."' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'></div>";
                 echo "<div class='four columns'></div>";
                 echo "</div>";

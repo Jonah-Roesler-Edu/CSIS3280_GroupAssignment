@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Config
 require_once('inc/config.inc.php');
 
@@ -40,7 +40,7 @@ if(!empty($_POST)) {
         $newRes->setTime($_POST["time"]);
         $newRes->setCustomerId($getCustomer->getCustomerId());
 
-        $tableArray = 
+        // $tableArray =
 
         ReservationMapper::createReservation($newRes);
         break;
@@ -51,45 +51,66 @@ if(!empty($_POST)) {
 
 }
 
-
-
-
 Page::$title = "Group Project - Restaurant";
 Page::header();
-Page::dashboard(5);
-Page::$subtitle = "New Restaurant";
-Page::formRestaurant(); 
-$nrt = new Restaurant();
-$nrt->setName("Autostrada");
-$nrt->setTimeOpen(mktime(17, 00));
-$nrt->setTimeClose(mktime(22, 00));
-$nrt->setDayOpen("Mon");
-$nrt->setDayClose("Sun");
-$nrt->setRestaurantId(1);
-Page::$subtitle = "Edit Restaurant";
-Page::formRestaurant($nrt); 
-Page::$subtitle = "New Reservation";
-Page::formReservations();
-$nr = new Reservation();
-$nr->setReservationId(1);
-$nr->setCustomerId(1);
-$nr->setNumPeople(3);
-$nr->setDate("2019-05-05");
-$nr->setTime(mktime(16, 20));
-$nr2 = new Reservation();
-$nr2->setReservationId(1);
-$nr2->setCustomerId(1);
-$nr2->setNumPeople(3);
-$nr2->setDate("2019-05-05");
-$nr2->setTime(mktime(16, 20));
-$nc = new Customer();
-$nc->setCustomerId(1);
-$nc->setName("Rafael");
-$nc->setLastName("Olivares");
-$nc->setEmail("rafa@douglas.com");
-Page::$subtitle = "Edit Reservation";
-Page::formReservations($nr,$nc);
-Page::showReservations(array($nr, $nr2));
+if (count($_GET) == 0) {
+     $restaurants = RestaurantMapper::getRestaurant();
+    $tableArray = TableMapper::getDiningTables();
+    $data = array();
+    for ($i=0; $i < count($restaurants) ; $i++) { 
+        $tables = 0;
+        for ($j=0; $j < count($tableArray); $j++) {
+            if ($restaurants[$i]->getRestaurantId()==$tableArray[$j]->getRestaurantId()) {
+                $tables++;
+            }
+        }
+        $data[$restaurants[$i]->getName()] = $tables;
+    }
+
+    Page::dashboard($restaurants, $data);
+} else{
+    if ($_GET["action"] == "forRestaurants") {
+        Page::$subtitle = "New Restaurant";
+        Page::formRestaurant();
+    } else if ($_GET["action"] == "newReservation") {
+        Page::$subtitle = "New Reservation";
+        Page::formReservations();
+    }
+    else {
+
+        $nrt = new Restaurant();
+        $nrt->setName("Autostrada");
+        $nrt->setTimeOpen(mktime(17, 00));
+        $nrt->setTimeClose(mktime(22, 00));
+        $nrt->setDayOpen("Mon");
+        $nrt->setDayClose("Sun");
+        $nrt->setRestaurantId(1);
+        Page::$subtitle = "Edit Restaurant";
+        Page::formRestaurant($nrt);
+        $nr = new Reservation();
+        $nr->setReservationId(1);
+        $nr->setCustomerId(1);
+        $nr->setNumPeople(3);
+        $nr->setDate("2019-05-05");
+        $nr->setTime(mktime(16, 20));
+        $nr2 = new Reservation();
+        $nr2->setReservationId(1);
+        $nr2->setCustomerId(1);
+        $nr2->setNumPeople(3);
+        $nr2->setDate("2019-05-05");
+        $nr2->setTime(mktime(16, 20));
+        $nc = new Customer();
+        $nc->setCustomerId(1);
+        $nc->setName("Rafael");
+        $nc->setLastName("Olivares");
+        $nc->setEmail("rafa@douglas.com");
+        Page::$subtitle = "Edit Reservation";
+        Page::formReservations($nr,$nc);
+        Page::showReservations(array($nr, $nr2));
+    }
+}
+
+
 Page::footer();
 
 ?>
