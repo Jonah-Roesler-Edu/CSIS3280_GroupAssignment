@@ -29,6 +29,14 @@ Class CustomerMapper {
         return self::$db->resultSet();
     }
 
+    static function getACustomer(int $id) {
+        $SQLQuery = "SELECT * FROM Customer WHERE CustomerId = :id";
+        self::$db->query($SQLQuery);
+        self::$db->bind(':id', $id);
+        self::$db->execute();
+        return self::$db->resultSet();
+    }
+
     //Function to retrieve customer by email
     static function getCustByEmail(string $email) {
         //Create Query

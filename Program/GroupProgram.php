@@ -96,6 +96,17 @@ if (count($_GET) == 0) {
         Page::formReservations(null, null, $tableArray);
         $reservations = ReservationMapper::getReservationByRestaurant($restaurant->getRestaurantId());
         Page::showReservations($reservations);
+    } else if ($_GET["action"] == "editReservation") {
+        //WHEN RESTAURANT IS CHOSEN
+        $reservation = ReservationMapper::getAReservation($_GET['reservationId']);
+        $customer = CustomerMapper::getACustomer($reservation[0]->getCustomerId());
+        $table = TableMapper::getATable($reservation[0]->getTableId());
+        $restaurant = RestaurantMapper::getOneRestaurant($table[0]->getRestaurantId());
+        $tableArray = TableMapper::getRestaurantTables($table[0]->getRestaurantId());
+        Page::$subtitle = "Edit Reservation - ".$restaurant->getName();
+        
+        //var_dump($tableArray);
+        Page::formReservations($reservation[0], $customer[0], $tableArray);
     }
     else {
 

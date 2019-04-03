@@ -37,6 +37,16 @@ Class TableMapper {
         return self::$db->resultset();
     }
 
+    static function getATable(int $id) {
+        $SQLFindTables = "SELECT * FROM DiningTable WHERE TableId = :id";
+
+        self::$db->query($SQLFindTables);
+        self::$db->bind(':id', $id);
+        self::$db->execute();
+
+        return self::$db->resultset();
+    }
+
     // }
 
         //function to create a new diningTable
@@ -52,7 +62,7 @@ Class TableMapper {
     
             self::$db->execute();
     
-            return self::$db->lastInsertedid();
+            return self::$db->lastInsertId();
         }
     
         //function to delete a diningtable
