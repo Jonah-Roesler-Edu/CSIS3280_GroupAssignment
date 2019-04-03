@@ -94,7 +94,7 @@ Page::$title = "Group Project - Restaurant";
 Page::header();
 if (count($_GET) == 0) {
      $restaurants = RestaurantMapper::getRestaurant();
-    $tableArray = TableMapper::getDiningTables();
+    $tableArray = TableMapper::getReservationByRestaurant();
     $data = array();
     for ($i=0; $i < count($restaurants) ; $i++) { 
         $tables = 0;
@@ -134,44 +134,19 @@ if (count($_GET) == 0) {
         Page::formReservations($reservation[0], $customer[0], $tableArray);
     }
     else if ($_GET["action"] == "deleteReservation") {
+        $reservation = ReservationMapper::getAReservation($_GET['reservationId']);
+        $table = TableMapper::getATable($reservation[0]->getTableId());
+        $restaurant = RestaurantMapper::getOneRestaurant($table[0]->getRestaurantId());
         ReservationMapper::deleteReservation($_GET["reservationId"]);
         unset($_GET["action"]);
         unset($_GET["reservationId"]);
-        var_dump($_GET);
-
-        header("location:GroupProgram.php");
+        Page::empty();
+        Page::HTMLMessage("The reservation in ".$restaurant->getName()." has been deleted");
+        header("Refresh: 5; url = GroupProgram.php");
+        
     }
     else {
-
-        $nrt = new Restaurant();
-        $nrt->setName("Autostrada");
-        $nrt->setTimeOpen(mktime(17, 00));
-        $nrt->setTimeClose(mktime(22, 00));
-        $nrt->setDayOpen("Mon");
-        $nrt->setDayClose("Sun");
-        $nrt->setRestaurantId(1);
-        Page::$subtitle = "Edit Restaurant";
-        Page::formRestaurant($nrt);
-        $nr = new Reservation();
-        $nr->setReservationId(1);
-        $nr->setCustomerId(1);
-        $nr->setNumPeople(3);
-        $nr->setDate("2019-05-05");
-        $nr->setTime(mktime(16, 20));
-        $nr2 = new Reservation();
-        $nr2->setReservationId(1);
-        $nr2->setCustomerId(1);
-        $nr2->setNumPeople(3);
-        $nr2->setDate("2019-05-05");
-        $nr2->setTime(mktime(16, 20));
-        $nc = new Customer();
-        $nc->setCustomerId(1);
-        $nc->setName("Rafael");
-        $nc->setLastName("Olivares");
-        $nc->setEmail("rafa@douglas.com");
-        Page::$subtitle = "Edit Reservation";
-        Page::formReservations($nr,$nc);
-        Page::showReservations(array($nr, $nr2));
+        Page::empty();
     }
 }
 

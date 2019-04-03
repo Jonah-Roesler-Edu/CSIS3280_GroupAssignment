@@ -26,6 +26,13 @@ Class TableMapper {
         return self::$db->resultSet();
     }
 
+    static function getReservationByRestaurant() : Array{
+        $SQLQuery = "SELECT diningtable.TableId, diningtable.Placement, diningtable.SeatingNum, diningtable.RestaurantId FROM reservation INNER JOIN diningtable ON reservation.TableId = diningtable.TableId inner join restaurant on restaurant.RestaurantId = diningtable.RestaurantId";
+        self::$db->query($SQLQuery);
+        self::$db->execute();
+        return self::$db->resultSet();
+    }
+
     //function to get tables based on restaurant number
     static function getRestaurantTables(int $RestaurantID) {
         $SQLFindTables = "SELECT * FROM DiningTable WHERE RestaurantId = :restaurantid";
