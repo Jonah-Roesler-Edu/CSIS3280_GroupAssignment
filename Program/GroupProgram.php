@@ -59,7 +59,6 @@ if(!empty($_POST)) {
         case 'editReservation':
             $reservation = ReservationMapper::getAReservation($_POST['reservationId']);
             $dcustomer = CustomerMapper::deleteCustomerId($reservation[0]->getCustomerId());
-            $dTable = TableMapper::deleteTable($reservation[0]->getTableId());
             $dReservation = ReservationMapper::deleteReservation($reservation[0]->getReservationId());
             
             $newCust = new Customer;
@@ -80,7 +79,7 @@ if(!empty($_POST)) {
             
 
             ReservationMapper::createReservation($newRes);
-            Page::HTMLMessage("The customer ".$newCust->getName()." has been updated");
+            Page::HTMLMessage("The reservation for ".$newCust->getName()." at ".date("Y-M-d",strtotime($newRes->getDate()))." has been updated.");
         break;
 
         // case 'fTable':
