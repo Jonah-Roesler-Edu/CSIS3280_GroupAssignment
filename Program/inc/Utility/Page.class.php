@@ -163,7 +163,7 @@ Class Page {
     <?php
     }
 
-    static function formReservations(Reservation $reservation = null, Customer $customer=null){?>
+    static function formReservations(Reservation $reservation = null, Customer $customer=null, $TableArray=null){?>
         <div class="container">
         <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <h4><?php echo self::$subtitle; ?></h4>
@@ -173,11 +173,13 @@ Class Page {
                     <input class="form-control" type="number" placeholder="Table size" id="numPeople" name="numPeople" value="<?php if($reservation!=null){echo $reservation->getNumPeople();}?>">
                 </div>
                 <div class="six columns">
-                    <label for="restaurantName">RestaurantName</label>
-                    <!-- <input class="form-control" type="number" placeholder="RestaurantName" id="RestaurantName" name="numPeople" value="<?php if($reservation!=null){echo $reservation->getNumPeople();}?>"> -->
-                    <select name = "restaurantName" id = "restaurantName">
-                        <option value = 1>Rafael's Diner</option>
-                        <option value = 2>Johnny's Diner</option>
+                    <label for="restaurantTables">Restaurant tables</label>
+                    <select name = "restaurantTables" id = "restaurantTables">
+                        <?php 
+                        foreach($TableArray as $table) {
+                            echo '<option value ="'. $table->getTableId().'" >' .$table->getTableId(). ':' . $table->getPlacement(). '</option>';   
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
