@@ -53,9 +53,34 @@ if(!empty($_POST)) {
         
 
         ReservationMapper::createReservation($newRes);
+        Page::HTMLMessage("The reservation for ".$newCust->getName()." at ".date("Y-M-d",strtotime($newRes->getDate()))." has been created.");
         break;
 
-        case 'fRestaurant':
+        case 'editReservation':
+            $reservation = ReservationMapper::getAReservation($_POST['reservationId']);
+            $dcustomer = CustomerMapper::deleteCustomerId($reservation[0]->getCustomerId());
+            $dTable = TableMapper::deleteTable($reservation[0]->getTableId());
+            $dReservation = ReservationMapper::deleteReservation($reservation[0]->getReservationId());
+            
+            $newCust = new Customer;
+            $newCust->setName($_POST['name']);
+            $newCust->setLastName($_POST['lastname']);
+            $newCust->setEmail($_POST['email']);
+
+            $customerID = CustomerMapper::createCustomer($newCust);
+
+            //$getCustomer = CustomerMapper::getCustByEmail($_POST['email']);
+
+            $newRes = new Reservation;
+            $newRes->setNumPeople($_POST["numPeople"]);
+            $newRes->setDate($_POST["date"]);
+            $newRes->setTime($_POST["time"]);
+            $newRes->setCustomerId($customerID);
+            $newRes->setTableId($_POST['restaurantTables']);
+            
+
+            ReservationMapper::createReservation($newRes);
+            Page::HTMLMessage("The customer ".$newCust->getName()." has been updated");
         break;
 
         // case 'fTable':

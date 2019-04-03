@@ -28,6 +28,7 @@ Class Page {
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/skeleton.css">
+        <link rel="stylesheet" href="css/alerts-skeleton.css">
 
         <!-- Favicon
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -215,7 +216,8 @@ Class Page {
                 </div>
             </div>
             <input class="btn btn-primary" type="submit" name="submit" value="Submit">
-            <input type = "hidden" name = "flag" value = "fReservation">
+            <input type = "hidden" name = "flag" value = "<?php if($reservation == null){ echo "fReservation";}else{echo "editReservation";}?>">
+            <input type = "hidden" name = "reservationId" value = "<?php if($reservation != null){ echo $reservation->getReservationId();}?>">
         </form>
         </div>
     <?php
@@ -268,6 +270,13 @@ Class Page {
             $a+=3;
         }   
         echo "</div>";   
+    }
+
+    static function HTMLMessage($message){?>
+        <div class="alert alert-success" role="alert">
+        <?php echo $message;?>
+        </div>
+    <?php
     }
 
     static function footer() {
