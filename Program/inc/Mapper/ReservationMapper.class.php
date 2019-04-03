@@ -28,6 +28,14 @@ Class ReservationMapper {
         return self::$db->resultSet();
     }
 
+    static function getAReservation(int $id){
+        $SQLQuery = "SELECT * FROM Reservation WHERE ReservationId = :id";
+        self::$db->query($SQLQuery);
+        self::$db->bind(':id', $id);
+        self::$db->execute();
+        return self::$db->resultSet();
+    }
+
     static function getReservationByRestaurant(int $id) : Array{
         $SQLQuery = "SELECT reservation.ReservationId, reservation.NumPeople, reservation.DATE, reservation.Time, reservation.TableId, reservation.CustomerId FROM reservation INNER JOIN diningtable ON reservation.TableId = diningtable.TableId inner join restaurant on restaurant.RestaurantId = diningtable.RestaurantId WHERE diningtable.RestaurantId = :id";
         self::$db->query($SQLQuery);

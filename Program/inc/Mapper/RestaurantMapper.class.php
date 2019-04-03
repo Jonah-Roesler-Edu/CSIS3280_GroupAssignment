@@ -49,7 +49,7 @@ Class RestaurantMapper {
 
         self::$db->execute();
 
-        return self::$db->lastInsertedid();
+        return self::$db->lastInsertId();
     }
     
     //function to delete a Restaurant
