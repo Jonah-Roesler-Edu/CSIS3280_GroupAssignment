@@ -30,6 +30,10 @@ Class ReservationMapper {
 
         //function to create a new Reservation
         static function createReservation(Reservation $newReservation) {
+
+            //FIRST WE NEED TO GET THE TABLE ID OF A TABLE
+            
+
             $SQLCreateReserve = "INSERT INTO Reservation (NumPeople, DATE, Time, TableID, CustomerId)
             VALUES (:numpeople, :date, :time, :tableid, :customerid)";
     
@@ -46,7 +50,7 @@ Class ReservationMapper {
             return self::$db->lastInsertedid();
         }
     
-        //function to delete a customer
+        //function to delete a reservation
         static function deleteReservation(int $resrvationID) {
             $SQLDeleteReserve = "DELETE FROM reservation WHERE ReservationId = :reservationid;";
     

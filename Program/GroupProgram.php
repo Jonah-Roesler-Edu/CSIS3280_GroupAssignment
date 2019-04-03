@@ -16,6 +16,44 @@ require_once('inc/Mapper/RestaurantMapper.class.php');
 require_once('inc/Mapper/TableMapper.class.php');
 require_once('inc/Utility/Page.class.php');
 
+CustomerMapper::initialize("Customer");
+ReservationMapper::initialize("Reservation");
+RestaurantMapper::initialize("Restaurant");
+TableMapper::initialize("Restaurant");
+
+
+if(!empty($_POST)) {
+    switch($_POST['flag']) {
+        case 'fReservation':
+        $newCust = new Customer;
+        $newCust->setName($_POST['name']);
+        $newCust->setLastName($_POST['lastname']);
+        $newCust->setEmail($_POST['email']);
+
+        CustomerMapper::createCustomer($newCust);
+
+        $getCustomer = CustomerMapper::getCustByEmail($_POST['email']);
+
+        $newRes = new Reservation;
+        $newRes->setNumPeople($_POST["numPeople"]);
+        $newRes->setDate($_POST["date"]);
+        $newRes->setTime($_POST["time"]);
+        $newRes->setCustomerId($getCustomer->getCustomerId());
+
+        $tableArray = 
+
+        ReservationMapper::createReservation($newRes);
+        break;
+
+        case 'fRestaurant':
+        break;
+    }
+
+}
+
+
+
+
 Page::$title = "Group Project - Restaurant";
 Page::header();
 Page::dashboard(5);

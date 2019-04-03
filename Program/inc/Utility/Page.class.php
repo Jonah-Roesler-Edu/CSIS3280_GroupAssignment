@@ -86,7 +86,7 @@ Class Page {
                 echo "<a href='#' style='float: right;'>Book a table</a></div>";
                 echo "<div class='four columns'></div>";
                 echo "</div>";
-            }elseif ($rest==1) {
+            }else if ($rest==1) {
                 echo "<div class='row'>";
                 echo "<div class='four columns'>";
                 echo "<img src='Imagens/kitchen.jpg' alt='img'>";
@@ -103,7 +103,7 @@ Class Page {
     }
 
     static function formRestaurant(Restaurant $data = null){?>
-        <div class="conteniner">
+        <div class="container">
         <h4><?php echo self::$subtitle; ?></h4>
         <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
             <div class="row">
@@ -157,19 +157,28 @@ Class Page {
                 </div>
             </div>
             <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+            <input type = "hidden" name = "flag" value = "fRestaurant">
         </form>
         </div>
     <?php
     }
 
     static function formReservations(Reservation $reservation = null, Customer $customer=null){?>
-        <div class="conteniner">
+        <div class="container">
         <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <h4><?php echo self::$subtitle; ?></h4>
             <div class="row">
-                <div class="twelve columns">
+                <div class="six columns">
                     <label for="numPeople">Table Size</label>
                     <input class="form-control" type="number" placeholder="Table size" id="numPeople" name="numPeople" value="<?php if($reservation!=null){echo $reservation->getNumPeople();}?>">
+                </div>
+                <div class="six columns">
+                    <label for="restaurantName">RestaurantName</label>
+                    <!-- <input class="form-control" type="number" placeholder="RestaurantName" id="RestaurantName" name="numPeople" value="<?php if($reservation!=null){echo $reservation->getNumPeople();}?>"> -->
+                    <select name = "restaurantName" id = "restaurantName">
+                        <option value = 1>Rafael's Diner</option>
+                        <option value = 2>Johnny's Diner</option>
+                    </select>
                 </div>
             </div>
             <div class="row">
@@ -204,13 +213,14 @@ Class Page {
                 </div>
             </div>
             <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+            <input type = "hidden" name = "flag" value = "fReservation">
         </form>
         </div>
     <?php
     }
 
     static function showReservations($data){
-        echo "<div class='conteniner'>";
+        echo "<div class='container'>";
         echo "<h4>Reservations for today</h4>";
         $a=0;
         foreach ($data as $reservations) {

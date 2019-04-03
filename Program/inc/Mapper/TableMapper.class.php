@@ -18,7 +18,7 @@ Class TableMapper {
         self::$db = new PDOAgent($className);
     }
 
-    //Function to retrieve all customers
+    //Function to retrieve all Tables
     static function getDiningTables() {
         $SQLQuery = "SELECT * FROM DiningTable";
         self::$db->query($SQLQuery);
@@ -26,7 +26,12 @@ Class TableMapper {
         return self::$db->resultSet();
     }
 
-        //function to create a new Table
+    // //function to get tables based on restaurant
+    // static function getRestaurantTables() {
+    //     $SQLSelectTables = ""
+    // }
+
+        //function to create a new diningTable
         static function createTable(Table $newTable) {
             $SQLCreateTable = "INSERT INTO DiningTable (Placement, SeatingNum, RestaurantID)
             VALUES (:placement, :seatingnum, :restaurantid)";
@@ -42,7 +47,7 @@ Class TableMapper {
             return self::$db->lastInsertedid();
         }
     
-        //function to delete a customer
+        //function to delete a diningtable
         static function deleteTable(int $tableID) {
             $SQLDeleteCust = "DELETE FROM DiningTable WHERE TableId = :tableid;";
     
