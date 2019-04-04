@@ -65,19 +65,6 @@ Class CustomerMapper {
         self::$db->query($SQLDeleteCust);
         self::$db->bind(':id', $id);
         self::$db->execute();
-
-        
-        // if(self::$db->rowCount() !=1) {
-        //     throw new Exception("Unable to delete customer at $email");
-        // }
-
-        // try {
-
-        // }
-        // catch (Exception $e) {
-        //     echo $e->getMessage();
-        //     self::$db->debugDumpParams();
-        // }
     }
 
     static function deleteCustomer(string $email) {
@@ -86,24 +73,7 @@ Class CustomerMapper {
         self::$db->query($SQLDeleteCust);
         self::$db->bind(':email', $email);
         self::$db->execute();
-
-        
-        // if(self::$db->rowCount() !=1) {
-        //     throw new Exception("Unable to delete customer at $email");
-        // }
-
-        // try {
-
-        // }
-        // catch (Exception $e) {
-        //     echo $e->getMessage();
-        //     self::$db->debugDumpParams();
-        // }
     }
-
-
-
-
 }
 
 

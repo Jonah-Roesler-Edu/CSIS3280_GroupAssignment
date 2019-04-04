@@ -59,19 +59,6 @@ Class RestaurantMapper {
         self::$db->query($SQLDeleteRestaurant);
         self::$db->bind(':restaurantid', $restaurantID);
         self::$db->execute();
-
-        
-        // if(self::$db->rowCount() !=1) {
-        //     throw new Exception("Unable to delete customer at $email");
-        // }
-
-        // try {
-
-        // }
-        // catch (Exception $e) {
-        //     echo $e->getMessage();
-        //     self::$db->debugDumpParams();
-        // }
     }
 }
 
